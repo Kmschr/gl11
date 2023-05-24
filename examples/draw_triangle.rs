@@ -1,10 +1,12 @@
 extern crate glfw;
 use self::glfw::{Action, Context, Key};
 
+extern crate gl11;
+
 use std::sync::mpsc::Receiver;
 
-const SCR_WIDTH: u32 = 800;
-const SCR_HEIGHT: u32 = 600;
+const SCR_WIDTH: u32 = 1024;
+const SCR_HEIGHT: u32 = 768;
 
 pub fn main() {
     let mut glfw = glfw::init(glfw::FAIL_ON_ERRORS).unwrap();
@@ -21,28 +23,38 @@ pub fn main() {
     window.set_key_polling(true);
     window.set_framebuffer_size_polling(true);
 
-    let gl11 = gl11::Gl::load_with(|symbol| window.get_proc_address(symbol) as *const _);
+    gl11::load_with(|symbol| window.get_proc_address(symbol) as *const _);
 
     unsafe {
-        gl11.Enable(gl11::TEXTURE_2D);
+        gl11::BlendFunc(gl11::SRC_ALPHA, gl11::ONE_MINUS_SRC_ALPHA);
+        gl11::ClearColor(0.0, 0.0, 0.0, 0.0);
     }
 
     while !window.should_close() {
-        process_events(&mut window, &events, &gl11);
+        unsafe {
+            gl11::Clear(gl11::COLOR_BUFFER_BIT);
+
+            gl11::Begin(gl11::TRIANGLES);
+            gl11::Color3f(1.0, 0.0, 0.0);
+            gl11::Vertex2f(-0.8, -0.8);
+            gl11::Color3f(0.0, 1.0, 0.0);
+            gl11::Vertex2f(0.8, -0.8);
+            gl11::Color3f(0.0, 0.0, 1.0);
+            gl11::Vertex2f(0.0, 0.9);
+            gl11::End();
+        }
+
+        process_events(&mut window, &events);
         window.swap_buffers();
         glfw.poll_events();
     }
 }
 
-fn process_events(
-    window: &mut glfw::Window,
-    events: &Receiver<(f64, glfw::WindowEvent)>,
-    gl11: &gl11::Gl,
-) {
+fn process_events(window: &mut glfw::Window, events: &Receiver<(f64, glfw::WindowEvent)>) {
     for (_, event) in glfw::flush_messages(events) {
         match event {
             glfw::WindowEvent::FramebufferSize(width, height) => unsafe {
-                gl11.Viewport(0, 0, width, height)
+                gl11::Viewport(0, 0, width, height)
             },
             glfw::WindowEvent::Key(Key::Escape, _, Action::Press, _) => {
                 window.set_should_close(true)
