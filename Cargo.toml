@@ -3,6 +3,14 @@ name = "gl11"
 build = "build.rs"
 version = "0.1.0"
 edition = "2021"
+description = "OpenGL 1.1 bindings, based on gl-rs"
+homepage = "https://github.com/Kmschr/gl11"
+repository = "https://github.com/Kmschr/gl11.git"
+license = "Apache-2.0"
+authors = ["Kevin Schroeder <Kmschr@gmail.com>"]
+readme = "README.md"
+categories = ["api-bindings", "rendering::graphics-api"]
+keywords = ["gl", "opengl"]
 
 [lib]
 name = "gl11"
