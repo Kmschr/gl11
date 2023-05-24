@@ -1,0 +1,15 @@
+[package]
+name = "gl11"
+build = "build.rs"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "gl11"
+path = "src/lib.rs"
+
+[build-dependencies]
+gl_generator = "0.14"
+
+[dev-dependencies]
+glfw = "0.51"
