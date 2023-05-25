@@ -1,7 +1,7 @@
 [package]
 name = "gl11"
 build = "build.rs"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "OpenGL 1.1 bindings, based on gl-rs"
 homepage = "https://github.com/Kmschr/gl11"
