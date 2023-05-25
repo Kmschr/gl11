@@ -12,6 +12,6 @@ gl11 = "0.1"
 ```
 
 ## Usage
-Usage is similar to the `gl` crate, but with the OpenGL 1.1 functions.
+Usage is similar to the `gl` crate, but with OpenGL 1.1 functions.
 
-Check out the `example` on how to draw a triangle with GLFW
+Check out the [example](https://github.com/Kmschr/gl11/blob/master/examples/draw_triangle.rs) on how to draw a triangle with GLFW
